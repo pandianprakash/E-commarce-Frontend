@@ -1,87 +1,121 @@
-import React from "react";
-import assets from "../Assets/earing.jpg";
-import Assets from "../Assets/bang.png";
-import sets from "../Assets/nack.jpg"
-import asets from "../Assets/ring.png"
-import Sets from "../Assets/chain.webp"
-import nets from "../Assets/baracelet.jpg"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import ProductForm from "../Product/ProductForm"
 
-function Product(){
-    return(
+
+function Product() {
+  const [productdata, setProductdata] = useState([]);
+  const [editingProduct,setEditingProduct]=useState(null)
+  const [showForm, setShowForm] = useState(false);
+
+  const showAddForm = (product=null) => { 
+    setEditingProduct(product)
+    setShowForm(true);
+  };
+
+  const handleCloseForm = () => {
+    setShowForm(false);
+  }
+
+  //on load function
+  useEffect(() => {
+    getuserdata();
+  }, []);
+
+  //to get all product details to display in table view
+    var getuserdata = async() => { 
+    try {
+      const response = await axios.get("http://localhost:4000/products/view");
+       setProductdata(response.data)
+      // console.log(response.data); 
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  }
+
+  //to delete  product details to from table view
+  const  handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(`http://localhost:4000/products/deleteById/${id}`);    
+      console.log(response);
+      getuserdata();
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  return (
     <div>
-
-          <div class="absolute w-[1110px] h-[44px] left-[256px] top-[130px] bg-gray-50 border-b border-gray-100"></div>
-          <div class="absolute w-[179px] h-[35px] left-[270px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Product</div>
-          <div class="absolute w-[179px] h-[35px] left-[450px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Product name</div>
-          <div class="absolute w-[179px] h-[35px] left-[630px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Price</div>
-          <div class="absolute w-[179px] h-[35px] left-[810px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Sales</div>
-          <div class="absolute w-[179px] h-[35px] left-[990px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Status</div>
-          <div class="absolute w-[110px] h-[29px] left-[1209px] top-[135px] bg-white" />
-          <box-icon name='filter' class=" absolute w-[110px] h-[25px] left-[1180px] top-[138px] leading-[17px] "></box-icon>
-          <button class="absolute w-[110px] h-[25px] left-[1220px] top-[138px] text-[18px] leading-[17px] text-[#000000] font-inter">Filter</button>
-
-          {/* <div class="absolute w-[20px] h-[20px] left-[633px] top-[73px] bg-cover"style={{ backgroundImage: 'url(image)' }}/> */}
-    
-    <div>
-      <div class="absolute w-[70px] h-[70px] left-[320px] top-[193px] rounded-full">
-      <img src={assets} alt="earing" className="absolute w-100 h-100 top-[10px]" />
+  <div className="flex min-h-screen mt-2 bg-gray-50">
+    <div className="w-1/5 bg-white  border-gray-200 ">
+    </div>
+    {/* /* Main Content */} 
+    <div className="flex-1 bg-white">
+      {/* Top Navbar */}
+      <div className="bg-white border-b border-gray-200 p-4 flex items-center justify-between">
+        {/* Header Columns */}
+        <div className="flex flex-1 space-x-4">
+          <div className="w-[80px] text-black font-medium text-md">Product</div>
+          <div className="w-[180px] text-black font-medium text-md">Product Name</div>
+          <div className="w-[90px] text-black font-medium text-md">Price</div>
+          <div className="w-[200px] text-black font-medium text-md">Stock quantity</div>
+          <div className="w-[100px] text-black font-medium text-md">Actions</div>
+        </div>
+        {/* Buttons */}
+        <div className="flex space-x-4 ml-auto">
+          <button className="bg-gray-100 px-4 py-2 text-black font-medium rounded-md shadow-md flex items-center">
+            <box-icon name='filter'></box-icon>
+            <span className="ml-2">Filter</span>
+          </button>
+          <button
+            className="bg-gray-100 px-4 py-2 text-black font-medium rounded-md shadow-md flex items-center"
+            onClick={showAddForm}
+          >
+            <box-icon name='add-to-queue'></box-icon>
+            <span className="ml-2" >Add Product</span>
+          </button>
+        </div>
       </div>
-      {/* Earing */}
-      <div class="absolute w-[179px] h-[35px] left-[450px] top-[220px] font-inter text-[20px] leading-[16px] text-[black]">Earing</div>
-      <div class="absolute w-[179px] h-[35px] left-[630px] top-[220px] font-inter  text-[20px] leading-[16px] text-[black]">$30,000</div>
-      <div class="absolute w-[179px] h-[35px] left-[810px] top-[220px] font-inter text-[20px] leading-[16px] text-[black]">3,000</div>
-      <div class="absolute w-[179px] h-[35px] left-[990px] top-[220px] font-inter text-[20px] leading-[16px] text-[#01B008]">In-stack</div>
+   
+          {/* Table Content */}
+          <div className="w-full space-y-4">
+            {productdata.map((product) => (
+              <div key={product.id}
+                className="flex items-center bg-white p-4 m-2 rounded-lg shadow-md hover:bg-gray-100 transition duration-300">
+                
+                <div className="w-20 h-20">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover rounded-full" />
+                </div>
+                <div className="w-1/5 text-black font-medium text-md ml-4">{product.name}</div>
+                <div className="w-1/5 text-black font-medium text-md">{product.price}</div>
+               <div className="w-1/5 text-black font-medium text-md">{product.stock_quantity}</div>
+                <div className="flex space-x-4 ml-auto">
+                  <button className="bg-green-500 px-4 py-2 text-white font-medium rounded-full flex items-center"  onClick={showAddForm} value={product._id}>
+                    <box-icon name='edit'></box-icon>
+                    <span className="ml-2">Edit</span>
+                  </button>
 
-      <div>     
-      <div class="absolute w-[29px] h-[15px] left-[270px] top-[590px] rounded-full"></div>
-      <img src={Assets} alt="bang" className="absolute w-10 h-62 left-[330px] top-[275px]" />
-      </div> 
-      {/* Bangle */}
-      <div class="absolute w-[179px] h-[35px] left-[450px] top-[280px] font-inter text-[20px] leading-[16px] text-[black]">Bangle</div>
-      <div class="absolute w-[179px] h-[35px] left-[630px] top-[280px] font-inter text-[20px] leading-[16px] text-[black]">$50,000</div>
-      <div class="absolute w-[179px] h-[35px] left-[810px] top-[280px] font-inter text-[20px] leading-[16px] text-[black]">2,000</div>
-      <div class="absolute w-[179px] h-[35px] left-[990px] top-[280px] font-inter text-[20px] leading-[16px] text-[#FF0202]">Out of stack</div>
-
-      <div>
-      <div class="absolute w-[39.89px] h-[35px] left-[270px] top-[340px] rounded-full"></div>
-      <img src={sets} alt="nack" className="absolute w-10 h-62 left-[330px] top-[335px]" />
+                  <button
+                    className="bg-red-500 px-4 py-2 text-white font-medium rounded-full flex items-center" onClick={() => handleDelete(product._id)}>
+                    <box-icon name='trash'></box-icon><span className="ml-2">Delete</span>
+                    </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      {/* Nackles */}
-      <div class="absolute w-[179px] h-[35px] left-[450px] top-[340px] font-normal text-[20px] leading-[16px] text-[black]">Nackles</div>
-      <div class="absolute w-[179px] h-[35px] left-[630px] top-[340px] font-normal text-[20px] leading-[16px] text-[black]">$1,00000</div>
-      <div class="absolute w-[179px] h-[35px] left-[810px] top-[340px] font-normal text-[20px] leading-[16px] text-[black]">1,000</div>
-      <div class="absolute w-[179px] h-[35px] left-[990px] top-[340px] font-normal text-[20px] leading-[16px] text-[#01B008]">In-stack</div>
 
-      <div>
-      <div class="absolute w-[35px] h-[35px] left-[270px] top-[400px]  rounded-full"></div>
-      <img src={asets} alt="ring" className="absolute w-10 h-62 left-[330px] top-[388px]" /></div>
-      {/* Ring */}
-      <div class="absolute w-[179px] h-[35px] left-[450px] top-[400px] font-inter text-[20px] leading-[16px] text-[black]">Ring</div>
-      <div class="absolute w-[179px] h-[35px] left-[630px] top-[400px] font-inter text-[20px] leading-[16px] text-[black]">$20,000</div>
-      <div class="absolute w-[179px] h-[35px] left-[810px] top-[400px] font-inter text-[20px] leading-[16px] text-[black]">5,000</div>
-      <div class="absolute w-[179px] h-[35px] left-[990px] top-[400px] font-inter text-[20px] leading-[16px] text-[#01B008]">In-stack</div>
+      {showForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ">
+          <ProductForm
+            onClose={handleCloseForm}
+            product={editingProduct}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
 
-      <div>
-      <div class="absolute w-[35px] h-[35px] left-[270px] top-[460px] rounded-full"></div>
-      <img src={Sets} alt="chain" className="absolute w-10 h-62 left-[330px] top-[455px]" /></div>
-      {/* Chain */}
-      <div class="absolute w-[179px] h-[35px] left-[450px] top-[460px] font-inter text-[20px] leading-[16px] text-[black]">Chain</div>
-      <div class="absolute w-[179px] h-[35px] left-[630px] top-[460px] font-inter text-[20px] leading-[16px] text-[black]">$80,000</div>
-      <div class="absolute w-[179px] h-[35px] left-[810px] top-[460px] font-inter text-[20px] leading-[16px] text-[black]">2,000</div>
-      <div class="absolute w-[179px] h-[35px] left-[990px] top-[460px] font-inter text-[20px] leading-[16px] text-[black]">Up-coming</div>
-
-      <div>
-      <div className="absolute w-[35px] h-[35px] left-[270px] top-[382px]  rounded-full"></div>
-      <img src={nets} alt="baracelet" className="absolute w-10 h-62 left-[330px] top-[510px]" /></div>
-      {/* Breslet */}
-      <div class="absolute w-[179px] h-[35px] left-[450px] top-[520px] font-inter text-[20px] leading-[16px] text-[black]">Breslet</div>
-      <div class="absolute w-[179px] h-[35px] left-[630px] top-[520px] font-inter text-[20px] leading-[16px] text-[black]">$34,000</div>
-      <div class="absolute w-[179px] h-[35px] left-[810px] top-[520px] font-inter text-[20px] leading-[16px] text-[black]">1,000</div>
-      <div class="absolute w-[179px] h-[35px] left-[990px] top-[520px] font-inter text-[20px] leading-[16px] text-[black]">Up-coming</div>
-     
-     </div>
-       </div>
-    )
- }
- export default Product;
- 
+export default Product;

@@ -1,11 +1,12 @@
 import React from "react";
 import Assets from "../Assets/logo (1).png";
 import { useNavigate } from "react-router-dom";
-
+import { useState } from "react";
 
 
 function Sidenavbar(){
-    var navigate = useNavigate();
+    const navigate = useNavigate();
+
     return(
       <div>
       <div class="text-gray-800 font-inter">
@@ -20,28 +21,17 @@ function Sidenavbar(){
                 <box-icon type="solid" name="dashboard"></box-icon>
                 <span class="text-5m p-2" onClick={() => navigate("/Dashboard")}>Dashboard</span></a>
             </li>
-
-            <li class="mb-2 ">
-              <a href="#" class="flex items-center py-2 px-4 text-black hover:bg-white rounded-md">
+                           
+              <ul class="mt-7 mb-2">
+      <nav className="space-y-2">
+        {/* Product Dropdown */}
+        <li className="mb-1">
+        <a href="#" class="flex items-center py-2 px-4 text-black hover:bg-white rounded-md">
                 <box-icon name="package"></box-icon>
-                <span class="text-5m p-2" >Product</span>
-                <box-icon name="chevron-right" class="size-6 ml-auto "></box-icon></a>
-              
-              <ul class="pl-7 m-1">
-                <li class="mb-1 ">
-                  <a href="#" class="flex items-center py-2 px-4 text-black hover:bg-white rounded-md hover:text-black ">
-                    <box-icon name="add-to-queue" class="size-4"></box-icon>
-                    <span class="text-5m p-2"  onClick={() => navigate("/Product")}>Product </span></a>
-                </li>
-              
-                <li class="mb-1 ">
-                  <a href="#" class="flex items-center py-2 px-4 text-black hover:bg-white rounded-md hover:text-black ">
-                    <box-icon name="up-arrow-circle" class="size-4"></box-icon>
-                    <span class="text-5m p-2" onClick={() => navigate("/Productadd")}>Product Add</span></a>
-                </li>
+                <span class="text-5m p-2" onClick={() => navigate("/Product")} >Product</span></a>
+        </li>
+      </nav>
               </ul>
-            </li>
-
             <li class="mb-2 ">
               <a href="#" class="flex items-center py-2 px-4 text-black hover:bg-white rounded-md">
                 <box-icon name="cart" class="size-5"></box-icon>

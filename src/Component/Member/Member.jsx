@@ -1,84 +1,120 @@
-import React from "react";
-import Assets from "../Assets/im-2.jpg"
-import ssets from "../Assets/images-3.jpg"
-import sets from "../Assets/images-4.jpg"
-import ets from "../Assets/images-5.jpg"
-import aets from "../Assets/im-7.jpg"
-import ts from "../Assets/im-6.jpg"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import MemberForm from "../Member/MemberForm";
 
+function Member() {
+  var [members, setMembers] = useState([]);
+  var [memberdata, setMemberdata] = useState([]);
+  var [editingMember,setEditingMember] = useState("")
+  const [showForm, setShowForm] = useState(false);
 
-function Member(){
-    return(
-        <div>
-          <div class="absolute w-[1093px] h-[44px] left-[256px] top-[130px] bg-gray-50 border-b border-gray-100"></div>
-          <div class="absolute w-[179px] h-[35px] left-[250px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Profile</div>
-          <div class="absolute w-[179px] h-[35px] left-[400px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Name</div>
-          <div class="absolute w-[179px] h-[35px] left-[590px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Email ID</div>
-          <div class="absolute w-[179px] h-[35px] left-[800px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Member ID</div>
-          <div class="absolute w-[179px] h-[35px] left-[980px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Purchese</div>
-          <div class="absolute w-[110px] h-[29px] left-[1209px] top-[138px] bg-white" />
-          <box-icon name='filter' class=" absolute w-[110px] h-[25px] left-[1180px] top-[141px] leading-[17px] "></box-icon>
-          <button class="absolute w-[110px] h-[25px] left-[1220px] top-[141px] text-[18px] leading-[17px] text-[#000000] font-inter">Filter</button>
-        
-        
-      <div>     
-      <div class="absolute w-[29px] h-[15px] left-[270px] top-[590px] rounded-full"></div>
-      <img src={Assets} alt="img-2" className="absolute w-10 h-62 left-[320px] top-[199px]" />
-      <div class="absolute w-[179px] h-[35px] left-[400px] top-[199px] text-black font-normal text-[20px] leading-[19px]">Elisha</div>
-      <div class="absolute w-[179px] h-[35px] left-[590px] top-[199px] text-black font-normal text-[19px] leading-[19px]">Elisha12@gmail.com</div>
-      <div class="absolute w-[179px] h-[35px] left-[800px] top-[199px] text-black font-normal text-[20px] leading-[19px]">#585959</div>
-      <div class="absolute w-[179px] h-[35px] left-[980px] top-[199px] text-black font-normal text-[20px] leading-[19px]">Earing</div>      
-      </div> 
+  const showAddForm = (e) => { 
+    setEditingMember(e.target.value)
+    setShowForm(true);
+  };
+  const handleCloseForm = () => {
+    setShowForm(false);
+  }
 
-      <div>     
-      <div class="absolute w-[29px] h-[15px] left-[270px] top-[590px] rounded-full"></div>
-      <img src={ssets} alt="img-3" className="absolute w-10 h-62 left-[320px] top-[405px]" />
-      <div class="absolute w-[179px] h-[35px] left-[400px] top-[270px] text-black font-normal text-[20px] leading-[19px]">Jasmine</div>
-      <div class="absolute w-[179px] h-[35px] left-[590px] top-[270px] text-black font-normal text-[19px] leading-[19px]">Jasmine4@gmail.com</div>
-      <div class="absolute w-[179px] h-[35px] left-[800px] top-[270px] text-black font-normal text-[20px] leading-[19px]">#583566</div>
-      <div class="absolute w-[179px] h-[35px] left-[980px] top-[270px] text-black font-normal text-[20px] leading-[19px]">Nackles</div>      
-      </div> 
+  //load a function
+ useEffect(()=>{getMemberdata()},[])
 
-      <div>     
-      <div class="absolute w-[29px] h-[15px] left-[270px] top-[590px] rounded-full"></div>
-      <img src={sets} alt="img-5" className="absolute w-10 h-62 left-[320px] top-[340px]" />
-      <div class="absolute w-[179px] h-[35px] left-[400px] top-[340px] text-black font-normal text-[20px] leading-[19px]">Sophia</div>
-      <div class="absolute w-[179px] h-[35px] left-[590px] top-[340px] text-black font-normal text-[19px] leading-[19px]">Sophia3@gmail.com</div>
-      <div class="absolute w-[179px] h-[35px] left-[800px] top-[340px] text-black font-normal text-[20px] leading-[19px]">#587753</div>
-      <div class="absolute w-[179px] h-[35px] left-[980px] top-[340px] text-black font-normal text-[20px] leading-[19px]">Chain</div>
-      </div> 
-
-      <div>     
-      <div class="absolute w-[29px] h-[15px] left-[270px] top-[590px] rounded-full"></div>
-      <img src={ets} alt="img-5" className="absolute w-10 h-62 left-[320px] top-[270px]" />
-      <div class="absolute w-[179px] h-[35px] left-[400px] top-[405px] text-black font-normal text-[20px] leading-[19px]">Luna</div>
-      <div class="absolute w-[179px] h-[35px] left-[590px] top-[405px] text-black font-normal text-[19px] leading-[19px]">Luna98@gmail.com</div>
-      <div class="absolute w-[179px] h-[35px] left-[800px] top-[405px] text-black font-normal text-[20px] leading-[19px]">#586683</div>
-      <div class="absolute w-[179px] h-[35px] left-[980px] top-[405px] text-black font-normal text-[20px] leading-[19px]">Bangle</div>
-      </div> 
-
-      <div>     
-      <div class="absolute w-[29px] h-[15px] left-[270px] top-[590px] rounded-full"></div>
-      <img src={aets} alt="img-6" className="absolute w-10 h-62 left-[320px] top-[465px]" />
-      <div class="absolute w-[179px] h-[35px] left-[400px] top-[465px] text-black font-normal text-[20px] leading-[19px]">Helena</div>
-      <div class="absolute w-[179px] h-[35px] left-[590px] top-[465px] text-black font-normal text-[19px] leading-[19px]">Helena31@gmail.com</div>
-      <div class="absolute w-[179px] h-[35px] left-[800px] top-[465px] text-black font-normal text-[20px] leading-[19px]">#584333</div>
-      <div class="absolute w-[179px] h-[35px] left-[980px] top-[465px] text-black font-normal text-[20px] leading-[19px]">Bracelet</div>
-      </div> 
-
-      <div>     
-      <div class="absolute w-[29px] h-[15px] left-[270px] top-[590px] rounded-full"></div>
-      <img src={ts} alt="img-6" className="absolute w-10 h-62 left-[320px] top-[530px]" />
-      <div class="absolute w-[179px] h-[35px] left-[400px] top-[530px] text-black font-normal text-[20px] leading-[19px]">Hazel</div>
-      <div class="absolute w-[179px] h-[35px] left-[590px] top-[530px] text-black font-normal text-[19px] leading-[19px]">Hazel754@gmail.com</div>
-      <div class="absolute w-[179px] h-[35px] left-[800px] top-[530px] text-black font-normal text-[20px] leading-[19px]">#587654</div>
-      <div class="absolute w-[179px] h-[35px] left-[980px] top-[530px] text-black font-normal text-[20px] leading-[19px]">Ring</div>
-      </div>
-
-      </div>
-
-        
-    )
-}
- export default Member;
+  var getMemberdata = async() =>{    
+    try {
+      const response = await axios.get("http://localhost:4000/member/getMembers/view");
+      setMemberdata(response.data)
+      // console.log(response); 
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  }
  
+  var handleDelete = async(id) => {    
+    try {
+      const response = await axios.delete(`http://localhost:4000/member/deleteMember/${id}`,memberdata);
+      setMembers(response.data)
+      console.log(response.data); 
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  }
+
+ 
+  return (
+    <div className="flex min-h-screen bg-gray-50">
+      <aside className="w-1/5 bg-white border-gray-200 p-4">
+        <nav className="space-y-2">
+          {/* Add sidebar items here */}
+        </nav>
+      </aside>
+
+      <div className="flex-1 flex flex-col">
+        <header className="bg-white border-b border-gray-200 p-4 flex items-center justify-between">
+          <div className="flex flex-grow items-center space-x-4">
+            <div className="w-1/6 text-black font-medium text-md">Name</div>
+            <div className="w-1/6 pr-5 text-black font-medium text-md">Email ID</div>
+            <div className="w-1/6 text-black font-medium text-md">Phone</div>
+            <div className="w-1/6 text-black font-medium text-md">D.O.J</div>
+            <div className="w-1/6  pr-5 text-black font-medium text-md">Role</div>
+            <div className="w-1/6 pr-52 text-black font-medium text-md">Designation</div>
+            {/* <div className="w-1/6 text-black font-medium text-md">Address</div> */}
+          </div>
+          <button 
+            className="bg-gray-100 px-4 py-2 text-black font-medium rounded-md shadow-md flex items-center"
+            onClick={showAddForm}>
+            <box-icon name="plus" className="text-base"></box-icon>
+            <span className="ml-2">Add Member</span>
+          </button>
+        </header>
+
+        <main className="flex-1 p-4 bg-white">
+          <div className="space-y-4">
+            {memberdata.length > 0 ? (
+              memberdata.map((member) => (
+                <div key={member.id}
+                  className="grid grid-cols-8 gap-11 p-4 mb-2 bg-white border rounded-md shadow-md hover:bg-gray-100 transition duration-300">
+                  <div className="text-black">{member.name}</div>
+                  <div className=" text-black">{member.email}</div>
+                  <div className="pl-5 text-black">{member.phone}</div>
+                  <div className="pl-5 text-black">{member.dateofjoining}</div>
+                  <div className="text-black">{member.role}</div>
+                  <div className="text-black">{member.designation}</div>
+                  {/* <div className="text-black">{member.address}</div> */}
+                  <div className="flex space-x-4 ml-auto">
+                    <button 
+                      className="bg-green-500 px-3 py-2 text-white font-medium rounded-full flex items-center"
+                      onClick={showAddForm} value={member._id}
+                    >
+                      <box-icon name='edit'></box-icon>
+                      <span className="ml-2" >Edit</span>
+                    </button>
+
+                    <button 
+                      className="bg-red-500 px-2 py-2 text-white font-medium rounded-full flex items-center"
+                      onClick={() => handleDelete(member._id)}
+                    >
+                      <box-icon name='trash'></box-icon>
+                      <span className="ml-2">Delete</span>
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div>No members found</div>
+            )}
+          </div>
+        </main>
+      </div>
+
+      {showForm && (
+        <MemberForm
+          onClose={handleCloseForm}
+          member={editingMember}
+        />
+      )}
+
+    </div>
+  );
+}
+
+export default Member;

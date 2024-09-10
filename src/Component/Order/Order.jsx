@@ -1,97 +1,78 @@
-import React from "react";
+import React from 'react';
+import { useNavigate } from 'react-router-dom'; // If you want to navigate from the sidebar
 
+const orders = [
+  { id: '#585959', product: 'Earing', address: 'No.5,Perston,Ingle', date: '09.04.2023', price: '$250.00', status: 'Complete' },
+  { id: '#583566', product: 'Bangle', address: 'No.32,Royal,mesa', date: '21.03.2023', price: '$350.00', status: 'Canceled' },
+  { id: '#587753', product: 'Nackles', address: 'No.41,Grey,Utica', date: '03.04.2023', price: '$560.00', status: 'Pending' },
+  { id: '#586683', product: 'Ring', address: 'No.95,Elgin,Colina', date: '31.07.2023', price: '$130.00', status: 'Canceled' },
+  { id: '#584333', product: 'Chain', address: 'No.78,Parker,Utica', date: '18.10.2023', price: '$300.00', status: 'Complete' },
+  { id: '#587654', product: 'Breslet', address: 'No.67,Rancey,Colina', date: '17.08.2023', price: '$200.00', status: 'Pending' },
+];
 
-function Order(){
-    return(
-        <div>
-             <div class="absolute w-[1093px] h-[44px] left-[256px] top-[130px] bg-gray-50 border-b border-gray-100"></div>
-          <div class="absolute w-[179px] h-[35px] left-[255px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Order ID</div>
-          <div class="absolute w-[179px] h-[35px] left-[400px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Product</div>
-          <div class="absolute w-[179px] h-[35px] left-[560px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Address</div>
-          <div class="absolute w-[179px] h-[35px] left-[730px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Date</div>
-          <div class="absolute w-[179px] h-[35px] left-[860px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Price</div>
-          <div class="absolute w-[179px] h-[35px] left-[1000px] top-[139px] text-black font-normal text-[20px] leading-[19px]">Status</div>
-          <div class="absolute w-[110px] h-[29px] left-[1209px] top-[138px] bg-white" />
-          <box-icon name='filter' class=" absolute w-[110px] h-[25px] left-[1180px] top-[141px] leading-[17px] "></box-icon>
-          <button class="absolute w-[110px] h-[25px] left-[1220px] top-[141px] text-[18px] leading-[17px] text-[#000000] font-inter">Filter</button>
-       
-       <div>
-        <div class="absolute w-[179px] h-[35px] left-[250px] top-[190px] text-black font-normal text-[20px] leading-[19px]">#585959</div>
-        <div class="absolute w-[179px] h-[35px] left-[250px] top-[250px] text-black font-normal text-[20px] leading-[19px]">#583566</div>
-        <div class="absolute w-[179px] h-[35px] left-[250px] top-[310px] text-black font-normal text-[20px] leading-[19px]">#587753</div>
-        <div class="absolute w-[179px] h-[35px] left-[250px] top-[370px] text-black font-normal text-[20px] leading-[19px]">#586683</div>
-        <div class="absolute w-[179px] h-[35px] left-[250px] top-[430px] text-black font-normal text-[20px] leading-[19px]">#584333</div>
-        <div class="absolute w-[179px] h-[35px] left-[250px] top-[490px] text-black font-normal text-[20px] leading-[19px]">#587654</div>
-       </div>
+const statusColors = {
+  Complete: 'bg-green-500',
+  Canceled: 'bg-red-500',
+  Pending: 'bg-yellow-500',
+};
 
-       <div>
-        <div class="absolute w-[179px] h-[35px] left-[400px] top-[190px] text-black font-normal text-[20px] leading-[19px]">Earing</div>
-        <div class="absolute w-[179px] h-[35px] left-[400px] top-[250px] text-black font-normal text-[20px] leading-[19px]">Bangle</div>
-        <div class="absolute w-[179px] h-[35px] left-[400px] top-[310px] text-black font-normal text-[20px] leading-[19px]">Nackles</div>
-        <div class="absolute w-[179px] h-[35px] left-[400px] top-[370px] text-black font-normal text-[20px] leading-[19px]">Ring</div>
-        <div class="absolute w-[179px] h-[35px] left-[400px] top-[430px] text-black font-normal text-[20px] leading-[19px]">Chain</div>
-        <div class="absolute w-[179px] h-[35px] left-[400px] top-[490px] text-black font-normal text-[20px] leading-[19px]">Breslet</div>
-       </div>
+function Order() {
+  const navigate = useNavigate();
 
-       <div>
-        <div class="absolute w-[179px] h-[35px] left-[560px] top-[190px] text-black font-normal text-[17px] leading-[19px]">No.5,Perston Rd,Ingle</div>
-        <div class="absolute w-[179px] h-[35px] left-[560px] top-[250px] text-black font-normal text-[17px] leading-[19px]">No.32,Royal In,mesa</div>
-        <div class="absolute w-[179px] h-[35px] left-[560px] top-[310px] text-black font-normal text-[17px] leading-[19px]">No.41,Grey St,Utica</div>
-        <div class="absolute w-[179px] h-[35px] left-[560px] top-[370px] text-black font-normal text-[17px] leading-[19px]">No.95,Elgin St,Colina</div>
-        <div class="absolute w-[179px] h-[35px] left-[560px] top-[430px] text-black font-normal text-[17px] leading-[19px]">No.78,Parker Rd,Utica</div>
-        <div class="absolute w-[179px] h-[35px] left-[560px] top-[490px] text-black font-normal text-[17px] leading-[19px]">No.67,Rancey Rd,Colina</div>
-       </div>
-       
-       <div>
-        <div class="absolute w-[179px] h-[35px] left-[735px] top-[190px] text-black font-normal text-[18px] leading-[19px]">09.04.2023</div>
-        <div class="absolute w-[179px] h-[35px] left-[735px] top-[250px] text-black font-normal text-[18px] leading-[19px]">21.03.2023</div>
-        <div class="absolute w-[179px] h-[35px] left-[735px] top-[310px] text-black font-normal text-[18px] leading-[19px]">03.04.2023</div>
-        <div class="absolute w-[179px] h-[35px] left-[735px] top-[370px] text-black font-normal text-[18px] leading-[19px]">31.07.2023</div>
-        <div class="absolute w-[179px] h-[35px] left-[735px] top-[430px] text-black font-normal text-[18px] leading-[19px]">18.10.2023</div>
-        <div class="absolute w-[179px] h-[35px] left-[735px] top-[490px] text-black font-normal text-[18px] leading-[19px]">17.08.2023</div>
-       </div>
+  return (
+    <div className="flex min-h-screen bg-gray-50">
+      {/* Sidebar */}
+      <aside className="w-1/5 bg-white border-gray-200">
+        <div className="text-xl font-semibold text-black mb-4"></div>
+        <nav className="space-y-2">
 
-       <div>
-        <div class="absolute w-[179px] h-[35px] left-[870px] top-[190px] text-black font-normal text-[20px] leading-[19px]">$250.00</div>
-        <div class="absolute w-[179px] h-[35px] left-[870px] top-[250px] text-black font-normal text-[20px] leading-[19px]">$350.00</div>
-        <div class="absolute w-[179px] h-[35px] left-[870px] top-[310px] text-black font-normal text-[20px] leading-[19px]">$560.00</div>
-        <div class="absolute w-[179px] h-[35px] left-[870px] top-[370px] text-black font-normal text-[20px] leading-[19px]">$130.00</div>
-        <div class="absolute w-[179px] h-[35px] left-[870px] top-[430px] text-black font-normal text-[20px] leading-[19px]">$300.00</div>
-        <div class="absolute w-[179px] h-[35px] left-[870px] top-[490px] text-black font-normal text-[20px] leading-[19px]">$200.00</div>
-       </div>
-       
-       <div>
-        {/* <!-- Status-1--> */}
-        <button class="absolute w-[85px] h-[25px] left-[1050px] top-[190px] bg-[#00FF0A]/60 rounded-full">
-        <div class="absolute w-[101px] h-[25px]  top-[203px] text-black font-normal text-18 leading-[16px] font-normal"/>Complete</button>
+          {/* Add more sidebar items as needed */}
+        </nav>
+      </aside>
 
-        {/* <!-- Status-2--> */}
-        <button class="absolute w-[85px] h-[25px] left-[1050px] top-[250px] bg-[#FF0202]/60 rounded-full">
-        <div class="absolute w-[101px] h-[25px]  top-[203px] text-black font-normal text-18 leading-[16px] font-normal"/>Cancaled</button>
-      
-        {/* <!-- Status-3--> */}
-        <button class="absolute w-[85px] h-[25px] left-[1050px] top-[310px] bg-[#FFFF00]/60 rounded-full">
-        <div class="absolute w-[101px] h-[25px]  top-[203px] text-black font-normal text-18 leading-[16px] font-normal"/>Pending</button>
-      
-       {/* <!-- Status-4--> */}
-       <button class="absolute w-[85px] h-[25px] left-[1050px] top-[370px] bg-[#FF0202]/60 rounded-full">
-        <div class="absolute w-[101px] h-[25px]  top-[203px] text-black font-normal text-18 leading-[16px] font-normal"/>Cancaled</button>
-      
-        {/* <!-- Status-5--> */}
-        <button class="absolute w-[85px] h-[25px] left-[1050px] top-[430px] bg-[#00FF0A]/60 rounded-full">
-        <div class="absolute w-[101px] h-[25px]  top-[203px] text-black font-normal text-18 leading-[16px] font-normal"/>Complete</button>
-      
-        {/* <!-- Status-6--> */}
-        <button class="absolute w-[85px] h-[25px] left-[1050px] top-[490px] bg-[#FFFF00]/60 rounded-full">
-        <div class="absolute w-[101px] h-[25px]  top-[200px] text-black font-normal text-18 leading-[16px] font-normal"/>Pending</button>
-      
-        {/* <!-- Status-7--> */}
-        <button class="absolute w-[85px] h-[25px] left-[1050px] top-[190px] bg-[#00FF0A]/60 rounded-full">
-        <div class="absolute w-[101px] h-[25px]  top-[200px] text-black font-normal text-18 leading-[16px] font-normal"/>Complete</button>
-       </div>
-
+      <div className="flex-1 flex flex-col">
+        {/* Top Navbar */}
+        <header className="bg-white border-b pl-5 border-gray-200 p-4 flex items-center justify-between">
+          <div className="flex-5 flex items-center space-x-8">
+            <div className="w-[125px] text-black font-medium text-md">Orders</div>
+            <div className="w-[129px] text-black font-medium text-md">Product</div>
+            <div className="w-[129px] text-black font-medium text-md">Address</div>
+            <div className="w-[129px] text-black font-medium text-md">Date</div>
+            <div className="w-[129px] text-black font-medium text-md">Price</div>
+            <div className="w-[129px] text-black font-medium text-md">Status</div>
         </div>
-    )
+          <div className="flex space-x-7">
+            <button className="bg-gray-100 px-4 py-2 text-black font-medium rounded-md shadow-md flex items-center">
+              <box-icon name="filter" className="text-base"></box-icon>
+              <span className="ml-2">Filter</span>
+            </button>
+           
+          </div>
+        </header>
+
+        {/* Main Content */}
+        <main className="flex-2 p-4 bg-white">
+          <div className="bg-white space-y-5 border-b border-gray-200 p-4">
+            {orders.map((order) => (
+              <div
+                key={order.id}
+                className="grid grid-cols-6 gap-2 p-5 mb-2 bg-white border rounded-md shadow-md hover:bg-gray-100 transition duration-300"
+              >
+                <div className="text-black mr-16">{order.id}</div>
+                <div className="text-black mr-32">{order.product}</div>
+                <div className="text-black mr-36">{order.address}</div>
+                <div className="text-black mr-36">{order.date}</div>
+                <div className="text-black mr-32">{order.price}</div>
+                <div className={`text-white font-medium rounded-full px-2 py-1 ${statusColors[order.status]}`}>
+                  {order.status}
+                </div>
+              </div>
+            ))}
+          </div>
+        </main>
+      </div>
+    </div>
+  );
 }
- export default Order;
- 
+
+export default Order;

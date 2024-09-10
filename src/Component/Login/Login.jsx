@@ -1,50 +1,99 @@
-import React from "react";
-import "./Login.css";
-import background from "../../image/background.jpg";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import background from "../Assets/background.jpg";
+import axios from "axios";
 
-function login() {
+function Login() {
+  var [userData, setUserData] = useState([])
+  const [formData, setFormData] = useState({
+    email: "ram1@gmail.com",
+    password: "12345"
+  });
+
+  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:4000/login/login", formData);
+      console.log(response.data.data);
+      if (response.data) {
+        // console.log("Login response:", response.data);
+        setIsLogin(true);
+        navigate("/Dashboard");
+        window.alert("login sucessfully");
+      } else {
+        // console.error("Login failed:", response.data);
+        setIsLogin(false);
+        window.alert("Username or password incorrect.");
+      }
+      console.log("Login response:", response.data);
+    } 
+    catch (error) {
+    console.error("Error logging in:", error);
+    }
+  };
+
   return (
-    <div>
-      <div class=" flex w-6/12 ml-80 mr-100 w-md pt-10 pb-10 pl-10 mt-20 bg-white shadow-md rounded">
-        <img src={background} alt="background.jpg" class="" />
-        <div>
-          <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
-          <form class="ml-20">
-            <div class="mb-4 ">
-              <label for="email" class=" block text-gray-700">
-                Email
-              </label>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="flex flex-col md:flex-row w-200 ml-8 mb-20 max-w-6xl p-10 bg-white shadow-lg rounded-lg">
+        <div className="md:w-1/2 flex items-center justify-center">
+          <img
+            src={background}
+            alt="background"
+            className="w-full h-full object-cover rounded-lg"
+          />
+        </div>
+        <div className="md:w-1/2 flex flex-col justify-center p-8">
+          <h2 className="text-4xl font-bold mb-6 text-center">Login</h2>
+          <form  onClick={ handleSubmit } className="space-y-6">
+            <div>
+              <label htmlFor="email" className="block text-gray-700 text-sm font-medium">Email</label>
               <input
                 type="email"
                 id="email"
-                class=" p-3 border  border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your email"
                 required
               />
             </div>
-            <div class="mb-6">
-              <label for="password" class="block text-gray-700">
-                Password
-              </label>
+            <div>
+              <label htmlFor="password" className="block text-gray-700 text-sm font-medium">Password</label>
               <input
                 type="password"
                 id="password"
-                class=" p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your password"
                 required
               />
             </div>
             <button
               type="submit"
-              class="w-48 py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              Login
+              className="w-full py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+             >{isLogin ? "Login" : "login"}
             </button>
-            <p class="mt-4 text-center text-gray-600">
-              Don't have an account?{" "}
-              <a href="#" class="text-blue-500 hover:underline">
+            <p className="mt-4 text-center text-gray-600">
+              Don't have an account?
+              <button
+                onClick={() => navigate("/signup")}
+                className="text-blue-500 hover:underline"
+              >
                 Sign up
-              </a>
+              </button>
             </p>
           </form>
         </div>
@@ -53,4 +102,4 @@ function login() {
   );
 }
 
-export default login;
+export default Login;
